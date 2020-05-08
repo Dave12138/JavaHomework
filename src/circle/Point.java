@@ -2,7 +2,7 @@ package circle;
 
 import java.util.Objects;
 
-public final class Point {
+public class Point {
     private int x;
     private int y;
 
