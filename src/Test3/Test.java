@@ -1,6 +1,6 @@
 package Test3;
-import circle.CircleRelationship;
-import circle.Point;
+import Test2.CircleRelationship;
+import Test2.Point;
 
 import java.util.Scanner;
 

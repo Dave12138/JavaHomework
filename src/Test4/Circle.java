@@ -1,7 +1,7 @@
 package Test4;
 
 
-public class Circle extends circle.Circle {
+public class Circle extends Test2.Circle {
     private Point center;
     Circle(Point core, int r){
         if(core==null)

@@ -1,4 +1,4 @@
-package firstTest;
+package Test1;
 
 /**
  * jojo乘法表

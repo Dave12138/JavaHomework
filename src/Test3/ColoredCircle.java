@@ -1,7 +1,7 @@
 package Test3;
 
-import circle.Circle;
-import circle.Point;
+import Test2.Circle;
+import Test2.Point;
 
 public class ColoredCircle extends Circle {
     private Color borderColor;

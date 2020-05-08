@@ -1,4 +1,4 @@
-package circle;
+package Test2;
 
 import java.util.Scanner;
 

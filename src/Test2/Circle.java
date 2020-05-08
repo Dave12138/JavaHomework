@@ -1,4 +1,4 @@
-package circle;
+package Test2;
 
 public class Circle {
     private Point center;
