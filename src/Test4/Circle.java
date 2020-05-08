@@ -17,9 +17,6 @@ public class Circle extends circle.Circle {
         return center;
     }
 
-    public void setCenter(Point center) {
-        this.center = center;
-    }
 
     @Override
     public void setCenter(int x, int y) {
