@@ -1,6 +1,4 @@
 
-*.class
-*.kotlin_module
-*.xml
-*.bat
-*.iml
+/out
+/.idea
+JavaHomework.iml
