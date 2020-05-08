@@ -1,0 +1,6 @@
+
+*.class
+*.kotlin_module
+*.xml
+*.bat
+*.iml
