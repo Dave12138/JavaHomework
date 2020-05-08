@@ -11,6 +11,10 @@ public class Point extends circle.Point {
 
     @Override
     public boolean equals(Object o) {
-        return super.equals(o);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Point point = (Point) o;
+        return getX() == point.getX() &&
+                getY() == point.getY();
     }
 }
