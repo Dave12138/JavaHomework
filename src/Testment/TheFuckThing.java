@@ -13,6 +13,7 @@ public class TheFuckThing extends WhatTheFuck {
         System.out.println("构造方法Called");
     }
     TheFuckThing(int i){
+//        super(2);
         System.out.println("含参构造方法Called");
     }
 }

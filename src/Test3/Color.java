@@ -7,6 +7,13 @@ public final class Color {
     private int green;
     private int blue;
     public Color(int r,int g,int b){
+        if (r < 0 || g < 0 || b < 0) {
+            throw new IllegalArgumentException("颜色值不能为负");
+        }
+        if (r > 255 || g > 255 || b > 255) {
+            throw new IllegalArgumentException("颜色值过大");
+        }
+
         this.red=r;
         this.green=g;
         this.blue=b;
@@ -18,9 +25,6 @@ public final class Color {
         red=o.red;
         green=o.green;
         blue=o.blue;
-    }
-    Color(int RGB){
-        setColor(RGB);
     }
     /*get*/
     public int getBlue() {
@@ -36,14 +40,32 @@ public final class Color {
     }
     /*set*/
     public void setBlue(int blue) {
+        if (blue<0) {
+            throw new IllegalArgumentException("颜色值不能为负");
+        }
+        if (blue>255) {
+            throw new IllegalArgumentException("颜色值过大");
+        }
         this.blue = blue;
     }
 
     public void setGreen(int green) {
+        if (green < 0) {
+            throw new IllegalArgumentException("颜色值不能为负");
+        }
+        if (green > 255) {
+            throw new IllegalArgumentException("颜色值过大");
+        }
         this.green = green;
     }
 
     public void setRed(int red) {
+        if (red < 0) {
+            throw new IllegalArgumentException("颜色值不能为负");
+        }
+        if (red > 255) {
+            throw new IllegalArgumentException("颜色值过大");
+        }
         this.red = red;
     }
 

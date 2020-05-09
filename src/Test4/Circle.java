@@ -26,8 +26,9 @@ public class Circle extends Test2.Circle {
 
     @Override
     public String toString() {
-        return "{center=" + center +
-                ", radius=" + getRadius()+"}" ;
+        return "(x" + (-center.getX() >= 0 ? "+" : "") + -center.getX() + ")^2+" +
+                "(y" + (-center.getY() >= 0 ? "+" : "") + -center.getY() + ")^2=" +
+                getRadius() + "^2";
     }
 
     @Override

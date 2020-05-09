@@ -1,6 +1,6 @@
 package Test2;
 
-public class CircleRelationship {
+final public class CircleRelationship {
     int type;
     public CircleRelationship(int type){
         this.type = type;

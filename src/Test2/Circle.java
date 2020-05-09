@@ -100,8 +100,9 @@ set
     /*toString*/
     @Override
     public String toString() {
-        return "{center=" + center +
-                ", radius=" + radius+"}" ;
+        return "(x" + (-center.getX() >= 0 ? "+" : "") + -center.getX() + ")^2+" +
+                "(y" + (-center.getY() >= 0 ? "+" : "") + -center.getY() + ")^2=" +
+                getRadius() + "^2";
     }
 
 }
