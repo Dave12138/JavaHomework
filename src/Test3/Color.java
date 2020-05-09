@@ -3,9 +3,11 @@ package Test3;
 import java.util.Objects;
 
 public final class Color {
+    /*成员变量*/
     private int red;
     private int green;
     private int blue;
+    /*构造器*/
     public Color(int r,int g,int b){
         if (r < 0 || g < 0 || b < 0) {
             throw new IllegalArgumentException("颜色值不能为负");
