@@ -8,9 +8,9 @@ public class Test {
 
         System.out.println("使用无参构造方法创建对象：");
         var l=new TheFuckThing();
-        System.out.println("使用含参构造方法创建对象：");
+        System.out.println("接着使用含参构造方法创建对象：");
         TheFuckThing i=new TheFuckThing(1);
-        WhatTheFuck j=(WhatTheFuck)i;
-        System.out.println(""+i.getClass()+"\n"+j.getClass());
+        System.out.println("最后使用调用父含参构造方法的含参构造方法创建对象：");
+        TheFuckThing F=new TheFuckThing(1.2);
     }
 }

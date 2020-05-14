@@ -16,4 +16,9 @@ public class TheFuckThing extends WhatTheFuck {
 //        super(2);
         System.out.println("含参构造方法Called");
     }
+    TheFuckThing(double i){
+        super(3.14);
+        System.out.println("含参构造方法Called");
+    }
+
 }
