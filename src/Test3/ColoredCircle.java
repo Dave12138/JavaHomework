@@ -75,16 +75,16 @@ public class ColoredCircle extends Circle {
     @Override
     public int relation(Circle other) {
         var i = super.relation(other);
-        if (i == 0) {
-            if(other.getClass()==getClass()){
-                var o=(ColoredCircle)other;
-                if(centerColor.equals(o.centerColor)&&borderColor.equals(o.borderColor)){
-                    return 0;
-                }
-            }
-            return 5;
+        if (i != 0) {
+            return i;
         }
-        return i;
+        if(other.getClass()==getClass()){
+            var o=(ColoredCircle)other;
+            if(centerColor.equals(o.centerColor)&&borderColor.equals(o.borderColor)){
+                return 0;
+            }
+        }
+        return 5;
     }
 
     @Override
