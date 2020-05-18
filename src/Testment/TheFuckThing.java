@@ -24,4 +24,7 @@ public class TheFuckThing extends WhatTheFuck {
     void fun(int i){
         System.out.println("子类fun(int i)");
     }
+    void fun2(){
+        System.out.println("子类fun2()");
+    }
 }

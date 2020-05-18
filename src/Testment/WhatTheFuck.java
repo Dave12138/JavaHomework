@@ -20,4 +20,7 @@ public class WhatTheFuck {
     void  fun(){
         System.out.println("父类fun()");
     }
+    void fun2(){
+        System.out.println("父类fun2()");
+    }
 }
