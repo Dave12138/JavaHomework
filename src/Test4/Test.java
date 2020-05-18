@@ -3,7 +3,7 @@ package Test4;
 
 import java.util.Scanner;
 
-public class Test {
+public final class Test {
     public static void main(String[] args) {
         var sc = new Scanner(System.in);
         System.out.println("输入第一个圆的坐标与半径");

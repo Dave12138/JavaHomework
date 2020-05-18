@@ -2,7 +2,7 @@ package Test1;
 
 import java.util.Scanner;
 
-public class Factorial {
+public final class Factorial {
     /**
      * 递归法求取自然数阶乘
      * @param x 待求阶乘数 对于负数，抛出IllegalArgumentException

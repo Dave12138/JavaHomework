@@ -1,6 +1,6 @@
 package Test5;
 
-public class Test {
+public final class Test {
     public static void main(String[] args) {
         Matrix m = new Matrix(2, 3);
         for (int i = 1; i <= m.getRows(); i++) {

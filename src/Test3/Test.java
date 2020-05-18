@@ -4,7 +4,7 @@ import Test2.Point;
 
 import java.util.Scanner;
 
-public class Test {
+public final class Test {
     public static void main(String[] args) {
         var sc=new Scanner(System.in);
         ColoredCircle c1,c2,c3,c4;
