@@ -20,8 +20,8 @@ public final class Color {
         this.green=g;
         this.blue=b;
     }
-    Color(){
-
+    public Color(){
+        this(255, 255, 255);
     }
     Color(Color o){
         red=o.red;
