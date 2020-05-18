@@ -21,4 +21,7 @@ public class TheFuckThing extends WhatTheFuck {
         System.out.println("含参构造方法Called");
     }
 
+    void fun(int i){
+        System.out.println("子类fun(int i)");
+    }
 }

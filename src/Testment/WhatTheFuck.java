@@ -17,4 +17,7 @@ public class WhatTheFuck {
     WhatTheFuck(double i){
         System.out.println("含参父构造方法Called");
     }
+    void  fun(){
+        System.out.println("父类fun()");
+    }
 }
