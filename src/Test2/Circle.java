@@ -4,7 +4,7 @@ public class Circle {
     private Point center;
     private int radius;
     /*构造器*/
-    protected Circle(){
+    public Circle(){
         this(0,0,1);
     }
     /**

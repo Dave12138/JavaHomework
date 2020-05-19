@@ -1,4 +1,5 @@
 package Test3;
+import Test2.Circle;
 import Test2.CircleRelationship;
 import Test2.Point;
 
@@ -34,10 +35,12 @@ public final class Test {
         System.out.println("ColoredCircle(Point center,int r,Color centerColor,Color borderColor)called");
         c4=new ColoredCircle(c2.getCenter(),c2.getRadius(),c3.getCenterColor(),c3.getBorderColor());
         System.out.println("⚪4：" + c4 + "面积：" + c4.area() + "周长：" + c4.perimeter());
-
+        var tmp=new Circle();
         System.out.println("---------------------------------------");
         System.out.println("圆之间关系：");
         System.out.println("⚪2&⚪3:" + c2.relation(c3) + new CircleRelationship(c2.relation(c3)));
         System.out.println("⚪2&⚪4:" + c2.relation(c4) + new CircleRelationship(c2.relation(c4)));
+        System.out.println("⚪1&无色单位圆:" + c1.relation(tmp) + new CircleRelationship(c1.relation(tmp)));
+
     }
 }
