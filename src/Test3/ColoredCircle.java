@@ -3,7 +3,7 @@ package Test3;
 import Test2.Circle;
 import Test2.Point;
 
-public class ColoredCircle extends Circle {
+public final class ColoredCircle extends Circle {
     private Color borderColor;
     private Color centerColor;
     /*
