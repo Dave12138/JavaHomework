@@ -2,41 +2,21 @@ package Test4;
 
 
 public class Circle extends Test2.Circle {
-    private Point center;
-    Circle(Point core, int r){
-        if(core==null)
-            throw new NullPointerException("点不存在");
-        if(r<0)
-            throw new IllegalArgumentException("半径不能为负");
-        center=new Point(core.getX(),core.getY());
-        setRadius(r);
+    public Circle(Point core, int r) {
+        super(core, r);
+    }
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
     @Override
-    public Point getCenter() {
-        return center;
+    public boolean equals(Object o) {
+        return super.equals(o);
     }
-
-
-    @Override
-    public void setCenter(int x, int y) {
-        center = new Point(x, y);
-    }
-
 
     @Override
     public String toString() {
-        return "(x" + (-center.getX() >= 0 ? "+" : "") + -center.getX() + ")^2+" +
-                "(y" + (-center.getY() >= 0 ? "+" : "") + -center.getY() + ")^2=" +
-                getRadius() + "^2";
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        var tmp = (Circle) obj;
-        return center.equals(tmp.center) && getRadius() == tmp.getRadius();
+        return super.toString();
     }
 }
