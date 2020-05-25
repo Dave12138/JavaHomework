@@ -136,11 +136,11 @@ public class Matrix {
     public String toString() {
         String res = "";
         for (int i = 0; i < getRows(); i++) {
-            res += "[\t";
+            res += "[";
             for (int j = 0; j < getCols(); j++) {
-                res += data[i][j] + "\t";
+                res += "\t "+data[i][j] ;
             }
-            res += "]\n";
+            res += "\t]\n";
         }
         return res;
     }

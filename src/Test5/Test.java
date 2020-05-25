@@ -10,9 +10,9 @@ public final class Test {
         }
         System.out.println("m:\n" + m);
         double[][] list = new double[2][3];
-        for (int i = 1; i <= 2; i++) {
-            for (int j = 1; j <= 3; j++) {
-                list[i - 1][j - 1] = i * 3 + j;
+        for (int i = 0; i <2; i++) {
+            for (int j = 0; j <3; j++) {
+                list[i][j] = i * 4 + j*11;
             }
         }
         Matrix n = new Matrix(list);
