@@ -70,7 +70,7 @@ public class Matrix {
      * @param other 乘数
      * @return 返回结果矩阵
      */
-    Matrix multiply(Matrix other){
+    Matrix multiply(Matrix other)throws MatrixMultiplicationException{
         if (getCols() != other.getRows()) {
             throw new MatrixMultiplicationException();
         }

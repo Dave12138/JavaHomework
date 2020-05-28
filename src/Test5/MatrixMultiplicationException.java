@@ -1,6 +1,6 @@
 package Test5;
 
-public class MatrixMultiplicationException extends RuntimeException {
+public class MatrixMultiplicationException extends Exception {
     MatrixMultiplicationException(){
         super("乘以无法相乘的矩阵");
     }
