@@ -17,7 +17,7 @@ public class Matrix {
         data = new double[rows][cols];
     }
 
-    Matrix()  {
+    Matrix() {
         data = new double[1][1];
     }
 
@@ -118,7 +118,7 @@ public class Matrix {
      * 
      * @return 计算结果
      */
-    double determinant()throws IllegalArgumentException {
+    double determinant() throws IllegalArgumentException {
         if (getCols() != getRows()) {
             throw new IllegalArgumentException("非方阵，无法计算");
         }

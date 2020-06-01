@@ -1,10 +1,11 @@
 package Test5;
 
 public class IllegalIndexException extends Exception {
-    IllegalIndexException(){
+    IllegalIndexException() {
         super("下标越界");
     }
-    IllegalIndexException(String s){
+
+    IllegalIndexException(String s) {
         super(s);
     }
 
