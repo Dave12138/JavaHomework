@@ -25,6 +25,9 @@ public class Matrix {
         if (null == data) {
             throw new IllegalArgumentException("用于构成矩阵的二维数组不存在");
         }
+        if (data.length < 1 || data[0].length < 1) {
+            throw new IllegalArgumentException("二维数组不合法");
+        }
         this.data = new double[data.length][data[0].length];
         for (int i = 0; i < getRows(); i++) {
             for (int j = 0; j < getCols(); j++) {
