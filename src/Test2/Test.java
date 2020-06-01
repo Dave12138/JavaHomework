@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 final public class Test {
     public static void main(String[] args) {
-        var sc=new Scanner(System.in);
+        var sc = new Scanner(System.in);
         System.out.println("---------------------Notice----------------------");
         System.out.println("\tCircle无参构造方法默认为单位圆");
         System.out.println("-------------------------------------------------");

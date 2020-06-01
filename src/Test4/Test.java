@@ -1,6 +1,5 @@
 package Test4;
 
-
 import java.util.Scanner;
 
 public final class Test {

@@ -3,12 +3,13 @@ package Test3;
 import java.util.Objects;
 
 public final class Color {
-    /*成员变量*/
+    /* 成员变量 */
     private int red;
     private int green;
     private int blue;
-    /*构造器*/
-    public Color(int r,int g,int b){
+
+    /* 构造器 */
+    public Color(int r, int g, int b) {
         if (r < 0 || g < 0 || b < 0) {
             throw new IllegalArgumentException("颜色值不能为负");
         }
@@ -16,19 +17,22 @@ public final class Color {
             throw new IllegalArgumentException("颜色值过大");
         }
 
-        this.red=r;
-        this.green=g;
-        this.blue=b;
+        this.red = r;
+        this.green = g;
+        this.blue = b;
     }
-    public Color(){
+
+    public Color() {
         this(255, 255, 255);
     }
-    Color(Color o){
-        red=o.red;
-        green=o.green;
-        blue=o.blue;
+
+    Color(Color o) {
+        red = o.red;
+        green = o.green;
+        blue = o.blue;
     }
-    /*get*/
+
+    /* get */
     public int getBlue() {
         return blue;
     }
@@ -40,12 +44,13 @@ public final class Color {
     public int getRed() {
         return red;
     }
-    /*set*/
+
+    /* set */
     public void setBlue(int blue) {
-        if (blue<0) {
+        if (blue < 0) {
             throw new IllegalArgumentException("颜色值不能为负");
         }
-        if (blue>255) {
+        if (blue > 255) {
             throw new IllegalArgumentException("颜色值过大");
         }
         this.blue = blue;
@@ -71,27 +76,30 @@ public final class Color {
         this.red = red;
     }
 
-    public void setColor(int RGB){
+    public void setColor(int RGB) {
         red = RGB >> 16;
         RGB -= red << 16;
         green = RGB >> 8;
         RGB -= green << 8;
         blue = RGB;
     }
-    int toInt(){
+
+    int toInt() {
         return (red << 16) + (green << 8) + blue;
     }
-    String toHex(){
+
+    String toHex() {
         return Integer.toHexString(toInt());
     }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Color color = (Color) o;
-        return red == color.red &&
-                green == color.green &&
-                blue == color.blue;
+        return red == color.red && green == color.green && blue == color.blue;
     }
 
     @Override
@@ -101,10 +109,6 @@ public final class Color {
 
     @Override
     public String toString() {
-        return "rgb(" +
-                "" + red +
-                ", " + green +
-                ", " + blue +
-                ')';
+        return "rgb(" + "" + red + ", " + green + ", " + blue + ')';
     }
 }
