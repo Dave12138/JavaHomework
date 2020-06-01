@@ -1,7 +1,8 @@
 package Test5;
 
 public class MatrixMultiplicationException extends Exception {
-    MatrixMultiplicationException(){
+
+    MatrixMultiplicationException() {
         super("乘以无法相乘的矩阵");
     }
     MatrixMultiplicationException(String s){

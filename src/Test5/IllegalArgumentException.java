@@ -1,6 +1,6 @@
 package Test5;
 
-public class IllegalArgumentException extends RuntimeException {
+public class IllegalArgumentException extends Exception {
     IllegalArgumentException(){
         super("矩阵行列数不合法或矩阵不存在");
     }

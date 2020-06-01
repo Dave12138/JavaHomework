@@ -1,6 +1,6 @@
 package Test5;
 
-public class IllegalIndexException extends RuntimeException {
+public class IllegalIndexException extends Exception {
     IllegalIndexException(){
         super("下标越界");
     }
