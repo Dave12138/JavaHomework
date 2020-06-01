@@ -1,7 +1,7 @@
 package Testment;
 
 public class TheFuckThing extends WhatTheFuck {
-    static{
+    static {
         System.out.println("静初始化块Called");
     }
     {
@@ -9,22 +9,25 @@ public class TheFuckThing extends WhatTheFuck {
         System.out.println("初始化块Called");
     }
 
-    TheFuckThing(){
+    TheFuckThing() {
         System.out.println("构造方法Called");
     }
-    TheFuckThing(int i){
-//        super(2);
+
+    TheFuckThing(int i) {
+        // super(2);
         System.out.println("含参构造方法Called");
     }
-    TheFuckThing(double i){
+
+    TheFuckThing(double i) {
         super(3.14);
         System.out.println("含参构造方法Called");
     }
 
-    void fun(int i){
+    void fun(int i) {
         System.out.println("子类fun(int i)");
     }
-    void fun2(){
+
+    void fun2() {
         System.out.println("子类fun2()");
     }
 }
