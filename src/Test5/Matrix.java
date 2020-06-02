@@ -76,7 +76,7 @@ public class Matrix {
      * @return 返回结果矩阵
      */
     Matrix multiply(Matrix other) throws MatrixMultiplicationException {
-        if (getCols() != other.getRows()) {
+        if (null == other || getCols() != other.getRows()) {
             throw new MatrixMultiplicationException();
         }
         Matrix result = null;
