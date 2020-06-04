@@ -4,21 +4,21 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SimpleCalculator {
-    private JFrame window;
-    private JTextField pre, suf, result;
+    private final JFrame window;
+    private final JTextField pre, suf, result;
 
-    public JButton getButton(int i) {
+    public JButton getButton(final int i) {
         return buttons[i];
     }
 
-    private JButton[] buttons;
-    private JLabel operator;
+    private final JButton[] buttons;
+    private final JLabel operator;
 
     public SimpleCalculator() {
         this("憨批计算器");
     }
 
-    public SimpleCalculator(String title) {
+    public SimpleCalculator(final String title) {
         window = new JFrame(title);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLocation(500, 500);
@@ -29,13 +29,13 @@ public class SimpleCalculator {
         result.setEditable(false);
         operator = new JLabel("  ");
         buttons = new JButton[4];
-        JPanel top = new JPanel();
+        final JPanel top = new JPanel();
         top.add(pre);
         top.add(operator);
         top.add(suf);
         top.add(new Label("="));
         top.add(result);
-        JPanel bottom = new JPanel();
+        final JPanel bottom = new JPanel();
         top.setLayout(new FlowLayout());
         for (int i = 0; i < 4; i++) {
             buttons[i] = new JButton("+-*/ ".substring(i, i + 1));
@@ -49,7 +49,7 @@ public class SimpleCalculator {
      * 启动函数
      */
     public void go() {
-        MyListener listener = new MyListener(this);
+        final MyListener listener = new MyListener(this);
         for (int i = 0; i < 4; i++) {
             buttons[i].addActionListener(listener);
         }
@@ -57,7 +57,7 @@ public class SimpleCalculator {
         window.setVisible(true);
     }
 
-    void setOperator(String operator) {
+    void setOperator(final String operator) {
         this.operator.setText(operator);
     }
 
@@ -69,15 +69,15 @@ public class SimpleCalculator {
         return Integer.decode(suf.getText());
     }
 
-    void setResult(String s) {
+    void setResult(final String s) {
         result.setText(s);
     }
 
-    void setResult(int integer) {
+    void setResult(final int integer) {
         setResult("" + integer);
     }
 
-    void setResult(double i) {
+    void setResult(final double i) {
         setResult("" + i);
     }
 
@@ -98,8 +98,8 @@ public class SimpleCalculator {
 
     void div() {
         setOperator("/");
-        double a = getPre();
-        double b = getSuf();
+        final double a = getPre();
+        final double b = getSuf();
         if (b == 0)
             throw new ArithmeticException("除以0");
         setResult(a / b);

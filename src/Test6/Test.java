@@ -1,8 +1,8 @@
 package Test6;
 
 public class Test {
-    public static void main(String[] args) {
-        var SC = new SimpleCalculator();
+    public static void main(final String[] args) {
+        final var SC = new SimpleCalculator();
         SC.go();
     }
 }

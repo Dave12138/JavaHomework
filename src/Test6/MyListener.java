@@ -7,19 +7,19 @@ import java.awt.event.ActionListener;
 public class MyListener implements ActionListener {
     SimpleCalculator calculator;
 
-    public MyListener(SimpleCalculator sc) {
+    public MyListener(final SimpleCalculator sc) {
         calculator = sc;
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(final ActionEvent e) {
         for (int i = 0; i < 4; i++)
             if (e.getSource() == calculator.getButton(i)) {
                 try {
                     switchOperator(i);
-                } catch (NumberFormatException exc) {
+                } catch (final NumberFormatException exc) {
                     JOptionPane.showMessageDialog(null, "请输入整数");
-                } catch (ArithmeticException exc) {
+                } catch (final ArithmeticException exc) {
                     JOptionPane.showMessageDialog(null, "0不可作为除数");
                 }
             }
@@ -30,7 +30,7 @@ public class MyListener implements ActionListener {
      * 
      * @param operator 运算符，0为加，1为减，2为乘，3为除
      */
-    private void switchOperator(int operator) {
+    private void switchOperator(final int operator) {
         switch (operator) {
             case 0:
                 calculator.add();
