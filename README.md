@@ -48,3 +48,6 @@ Object类
 ## 实验6
 
 简易计算器
+
+* 实现一个SimpleCalculator类，构成一个简易计算器的UI
+* 实现一个MyListener类，用于捕获并处理计算器按钮点击事件
