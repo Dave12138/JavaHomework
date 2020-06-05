@@ -3,7 +3,7 @@ package Test6;
 import javax.swing.*;
 import java.awt.*;
 
-public class SimpleCalculator {
+public final class SimpleCalculator {
     private final JFrame window;
     private final JTextField pre, suf, result;
 
