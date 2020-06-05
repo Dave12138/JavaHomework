@@ -21,6 +21,7 @@ public final class SimpleCalculator {
     public SimpleCalculator(final String title) {
         window = new JFrame(title);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setResizable(false);
         window.setLocation(500, 500);
         window.setSize(600, 300);
         pre = new JTextField(10);
