@@ -4,45 +4,52 @@ import javax.swing.*;
 import java.awt.*;
 
 public final class SimpleCalculator {
-    private final JFrame window;
-    private final JTextField pre, suf, result;
+    private JFrame window;
+    private JTextField pre, suf, result;
+    private JButton[] buttons;
+    private JLabel operator;
 
-    public JButton getButton(final int i) {
-        return buttons[i];
-    }
-
-    private final JButton[] buttons;
-    private final JLabel operator;
-
+    /**
+     * 默认标题 “憨批计算器”
+     */
     public SimpleCalculator() {
         this("憨批计算器");
     }
 
-    public SimpleCalculator(final String title) {
+    /**
+     * 构造函数 自定标题
+     * 
+     * @param title 标题
+     */
+    public SimpleCalculator(String title) {
+        /* 搓出来主窗口 禁用窗口大小拖动 设定初始位置 */
         window = new JFrame(title);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setLocation(500, 500);
-        window.setSize(600, 300);
+        /* 三个文本框 */
         pre = new JTextField(10);
         suf = new JTextField(10);
         result = new JTextField(10);
         result.setEditable(false);
+        /* 运算符 四个按钮 */
         operator = new JLabel("  ");
-        buttons = new JButton[4];
-        final JPanel top = new JPanel();
+        /* 上面那些都塞一个容器里 放上排 */
+        JPanel top = new JPanel();
         top.add(pre);
         top.add(operator);
         top.add(suf);
         top.add(new Label("="));
         top.add(result);
-        final JPanel bottom = new JPanel();
+        window.add(top, BorderLayout.CENTER);
+        /* 再加一个容器放下排 里面塞按钮 */
+        JPanel bottom = new JPanel();
+        buttons = new JButton[4];
         top.setLayout(new FlowLayout());
         for (int i = 0; i < 4; i++) {
             buttons[i] = new JButton("+-*/ ".substring(i, i + 1));
             bottom.add(buttons[i]);
         }
-        window.add(top, BorderLayout.CENTER);
         window.add(bottom, BorderLayout.SOUTH);
     }
 
@@ -50,7 +57,7 @@ public final class SimpleCalculator {
      * 启动函数
      */
     public void go() {
-        final MyListener listener = new MyListener(this);
+        MyListener listener = new MyListener(this);
         for (int i = 0; i < 4; i++) {
             buttons[i].addActionListener(listener);
         }
@@ -58,10 +65,11 @@ public final class SimpleCalculator {
         window.setVisible(true);
     }
 
-    void setOperator(final String operator) {
+    void setOperator(String operator) {
         this.operator.setText(operator);
     }
 
+    /* getter */
     private int getPre() {
         return Integer.decode(pre.getText());
     }
@@ -70,18 +78,24 @@ public final class SimpleCalculator {
         return Integer.decode(suf.getText());
     }
 
-    void setResult(final String s) {
+    public JButton getButton(int i) {
+        return buttons[i];
+    }
+
+    /* setter */
+    void setResult(String s) {
         result.setText(s);
     }
 
-    void setResult(final int integer) {
+    void setResult(int integer) {
         setResult("" + integer);
     }
 
-    void setResult(final double i) {
+    void setResult(double i) {
         setResult("" + i);
     }
 
+    /* 运算部分 */
     void add() {
         setOperator("+");
         setResult(getPre() + getSuf());
@@ -99,11 +113,10 @@ public final class SimpleCalculator {
 
     void div() {
         setOperator("/");
-        final double a = getPre();
-        final double b = getSuf();
+        double a = getPre();
+        double b = getSuf();
         if (b == 0)
             throw new ArithmeticException("除以0");
         setResult(a / b);
     }
-
 }
