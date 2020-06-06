@@ -3,7 +3,6 @@ package Test7;
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.File;
-import java.io.IOException;
 
 public final class MyListener implements ActionListener, KeyListener, WindowListener {
     private boolean changed;
@@ -105,7 +104,7 @@ public final class MyListener implements ActionListener, KeyListener, WindowList
 
     @Override
     public void keyTyped(KeyEvent e) {
-        System.out.println("按下 " + e.getKeyChar()+"(按键码："+e.getKeyCode()+")");
+        System.out.println("按下 " + e.getKeyChar() + "(按键码：" + e.getKeyCode() + ")");
         if (!e.isControlDown()) {
             changed = true;
         }
