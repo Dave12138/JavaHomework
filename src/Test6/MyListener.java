@@ -19,10 +19,10 @@ public class MyListener implements ActionListener {
                     switchOperator(i);
                 } catch (final NumberFormatException exc) {
                     System.out.println(exc);
-                    JOptionPane.showMessageDialog(null, "请输入32位整数");
+                    JOptionPane.showMessageDialog(calculator.getWindow(), "请输入32位整数", "输入出错", 1);
                 } catch (final ArithmeticException exc) {
                     System.out.println(exc);
-                    JOptionPane.showMessageDialog(null, "0不可作为除数");
+                    JOptionPane.showMessageDialog(calculator.getWindow(), "0不可作为除数", "运算出错", 1);
                 }
             }
     }

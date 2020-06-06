@@ -82,6 +82,10 @@ public final class SimpleCalculator {
         return buttons[i];
     }
 
+    public JFrame getWindow() {
+        return window;
+    }
+
     /* setter */
     void setResult(String s) {
         result.setText(s);
