@@ -30,7 +30,7 @@ public final class SimpleCalculator {
         /* 三个文本框 */
         pre = new JTextField(10);
         suf = new JTextField(10);
-        result = new JTextField(10);
+        result = new JTextField(12);
         result.setEditable(false);
         /* 运算符 四个按钮 */
         operator = new JLabel("  ");
