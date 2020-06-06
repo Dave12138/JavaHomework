@@ -107,7 +107,21 @@ public final class MyListener implements ActionListener, KeyListener, WindowList
                     return;
                 }
             }
-            notepad.read();
+            if (notepad.getFile() == null) {
+                try {
+                    File s = SaveAs();
+                    if (s != null) {
+                        System.out.println("另存为 " + s.getPath());
+                    }
+                } catch (FileNotFoundException ex) {
+                    JOptionPane.showMessageDialog(notepad.getWindow(), "保存出错", "文件保存失败",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(notepad.getWindow(), ex, "文件保存失败", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                notepad.read();
+            }
             changed = false;
 
         }
