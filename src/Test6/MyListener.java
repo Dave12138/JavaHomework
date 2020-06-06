@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MyListener implements ActionListener {
+public final class MyListener implements ActionListener {
     SimpleCalculator calculator;
 
     public MyListener(final SimpleCalculator sc) {
