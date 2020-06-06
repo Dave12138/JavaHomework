@@ -3,6 +3,8 @@ package Test7;
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public final class MyListener implements ActionListener, KeyListener, WindowListener {
     private boolean changed;
@@ -20,9 +22,15 @@ public final class MyListener implements ActionListener, KeyListener, WindowList
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        /* 新建 */
+        if (e.getSource() == notepad.getMenu(0)) {
+
+            trySave();
+            notepad.createNew();
+        }
 
         /* 打开 */
-        if (e.getSource() == notepad.getMenu(0)) {
+        if (e.getSource() == notepad.getMenu(1)) {
             System.out.println("按下“打开文件”");
             String file = JOptionPane.showInputDialog("请输入欲打开文件名(含路径)");
             if (file != null) {
@@ -40,33 +48,55 @@ public final class MyListener implements ActionListener, KeyListener, WindowList
             }
         }
         /* 保存 */
-        if (e.getSource() == notepad.getMenu(1)) {
+        if (e.getSource() == notepad.getMenu(2)) {
             System.out.println("按下“保存文件”");
 
             if (notepad.getFile() != null) {
-                notepad.write();
+                try {
+                    notepad.write();
+                } catch (FileNotFoundException ex) {
+                    JOptionPane.showMessageDialog(notepad.getWindow(), "保存出错", "文件保存失败",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(notepad.getWindow(), ex, "文件保存失败", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
-                notepad.setFile(SaveAs());
+                try {
+                    notepad.setFile(SaveAs());
+                } catch (FileNotFoundException ex) {
+                    JOptionPane.showMessageDialog(notepad.getWindow(), "保存出错", "文件保存失败",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(notepad.getWindow(), ex, "文件保存失败", JOptionPane.ERROR_MESSAGE);
+                }
             }
             var s = notepad.getFile();
-            System.out.println("储存： " + s.getPath() + s.getName());
+            System.out.println("储存： " + s.getPath());
             changed = false;
         }
         /* 另存为 */
-        if (e.getSource() == notepad.getMenu(2)) {
+        if (e.getSource() == notepad.getMenu(3)) {
             System.out.println("按下“另存为”");
 
-            var s = SaveAs();
+            File s = null;
+            try {
+                s = SaveAs();
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(notepad.getWindow(), "保存出错", "文件保存失败", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(notepad.getWindow(), ex, "文件保存失败", JOptionPane.ERROR_MESSAGE);
+            }
             if (s != null) {
-                System.out.println("另存为 " + s.getPath() + s.getName());
+                System.out.println("另存为 " + s.getPath());
             }
         }
         /* 退出 */
-        if (e.getSource() == notepad.getMenu(3)) {
+        if (e.getSource() == notepad.getMenu(4)) {
             System.out.println("按下“退出”");
 
             windowClosing(null);
         }
+        /* 切换文件编码 */
         if (e.getSource() == notepad.getEncode()) {
             System.out.println("点击切换文件编码");
 
@@ -84,7 +114,7 @@ public final class MyListener implements ActionListener, KeyListener, WindowList
 
     }
 
-    private File SaveAs() {
+    private File SaveAs() throws IOException {
         String file = JOptionPane.showInputDialog("请输入欲保存文件名(含路径)");
         if (file == null) {
             return null;
@@ -127,16 +157,29 @@ public final class MyListener implements ActionListener, KeyListener, WindowList
 
     @Override
     public void windowClosing(WindowEvent e) {
-        if (changed && JOptionPane.showConfirmDialog(notepad.getWindow(), "是否保存?", "文件尚未保存",
-                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            if (notepad.getFile() == null) {
-                SaveAs();
-            } else {
-                notepad.write();
-            }
-        }
+        trySave();
         System.exit(0);
 
+    }
+
+    private void trySave() {
+        if (changed && JOptionPane.showConfirmDialog(notepad.getWindow(), "是否保存?", "文件尚未保存",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            try {
+                if (notepad.getFile() == null) {
+                    SaveAs();
+                } else {
+                    notepad.write();
+                }
+                changed = false;
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(notepad.getWindow(), "保存出错", "文件保存失败", JOptionPane.INFORMATION_MESSAGE);
+                trySave();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(notepad.getWindow(), ex, "文件保存失败", JOptionPane.ERROR_MESSAGE);
+                trySave();
+            }
+        }
     }
 
     @Override

@@ -15,21 +15,22 @@ public final class NotepadFrame {
 
     public NotepadFrame() {
         /* 顶部菜单栏 */
-        String[] menuName = { "打开", "保存", "另存为", "退出" };
-        menu = new JMenuItem[4];
+        String[] menuName = { "新建", "打开", "保存", "另存为", "退出" };
+        menu = new JMenuItem[5];
         JMenu menuList = new JMenu("文件");
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             menu[i] = new JMenuItem(menuName[i]);
-            if (i == 3)
+            if (i == 4)
                 menuList.add(new JSeparator());
             menuList.add(menu[i]);
         }
         JMenuBar bar = new JMenuBar();
         bar.add(menuList);
         /* 快捷键 */
-        menu[0].setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
-        menu[1].setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
-        menu[2].setAccelerator(
+        menu[0].setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
+        menu[1].setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
+        menu[2].setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
+        menu[3].setAccelerator(
                 KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
         /* 文本编辑框 */
         textArea = new JTextArea();
@@ -47,7 +48,7 @@ public final class NotepadFrame {
     public void go() {
         /* Listener */
         MyListener listener = new MyListener(this);
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             menu[i].addActionListener(listener);
         }
         window.addWindowListener(listener);
@@ -88,9 +89,7 @@ public final class NotepadFrame {
     }
 
     /**
-     * 0：打开 1：保存 2：另存为 3：退出
-     * 
-     * @param index
+     * @param index 0: 新建 1: 打开 2: 保存 3: 另存为 4: 退出
      * @return
      */
     public JMenuItem getMenu(int index) {
@@ -118,19 +117,20 @@ public final class NotepadFrame {
         }
     }
 
-    public void write() {
+    public void write() throws IOException {
         write(file);
     }
 
-    public void write(File writingFile) {
-        try (FileOutputStream f = new FileOutputStream(writingFile)) {
-            OutputStreamWriter file = new OutputStreamWriter(f, getCoder());
-            file.write(textArea.getText());
-            file.close();
-        } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(window, "保存出错", "文件保存失败", JOptionPane.INFORMATION_MESSAGE);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(window, e, "文件保存失败", JOptionPane.ERROR_MESSAGE);
-        }
+    public void write(File writingFile) throws IOException {
+        FileOutputStream f = new FileOutputStream(writingFile);
+        OutputStreamWriter file = new OutputStreamWriter(f, getCoder());
+        file.write(textArea.getText());
+        file.close();
+
+    }
+
+    public void createNew() {
+        textArea.setText("");
+        file = null;
     }
 }
