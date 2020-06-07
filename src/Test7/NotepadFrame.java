@@ -35,10 +35,12 @@ public final class NotepadFrame {
         /* 文本编辑框 */
         textArea = new JTextArea();
         JScrollPane pane = new JScrollPane(textArea);
+        /*底边状态栏*/
         JPanel status = new JPanel();
         encode = new JButton("UTF-8");
         status.setLayout(new BorderLayout());
         status.add(encode, BorderLayout.EAST);
+        /*组件拼入窗体*/
         window = new JFrame("What the Hell Code");
         window.setJMenuBar(bar);
         window.add(pane, BorderLayout.CENTER);
@@ -66,6 +68,11 @@ public final class NotepadFrame {
 
     public void setFile(File file) {
         this.file = file;
+        if(file!=null&&file.exists()){
+            window.setTitle(file.getName()+" - What the Hell Code");
+        }else{
+            window.setTitle("What the Hell Code");
+        }
     }
 
     public void changeEncode() {

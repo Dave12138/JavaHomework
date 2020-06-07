@@ -34,15 +34,17 @@ public final class MyListener implements ActionListener, KeyListener, WindowList
             System.out.println("按下“打开文件”");
             String file = JOptionPane.showInputDialog("请输入欲打开文件名(含路径)");
             if (file != null) {
-                notepad.setFile(new File(file));
+                var s = new File(file);
+                if (!s.exists()) {
+                    System.out.println("文件 " + file + " 不存在");
+                    return;
+                }
+                notepad.setFile(s);
                 notepad.read();
                 changed = false;
 
-                var s = notepad.getFile();
                 if (s.exists()) {
-                    System.out.println("打开： " + s.getPath() + s.getName());
-                } else {
-                    System.out.println("文件 " + file + " 不存在");
+                    System.out.println("打开： " + s.getPath());
                 }
 
             }
