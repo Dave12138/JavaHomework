@@ -1,16 +1,15 @@
 package Test7;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.io.*;
 
 public final class NotepadFrame {
-    private File file;
     private JMenuItem[] menu;
     private JFrame window;
-    private JTextArea textArea;
+    private TextArea textArea;
     private JButton encode;
 
     public NotepadFrame() {
@@ -33,18 +32,22 @@ public final class NotepadFrame {
         menu[3].setAccelerator(
                 KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
         /* 文本编辑框 */
-        textArea = new JTextArea();
-        JScrollPane pane = new JScrollPane(textArea);
-        /*底边状态栏*/
+        textArea = new TextArea();
+        /* 底边状态栏 */
         JPanel status = new JPanel();
         encode = new JButton("UTF-8");
         status.setLayout(new BorderLayout());
         status.add(encode, BorderLayout.EAST);
-        /*组件拼入窗体*/
+        /* 左边没点啥总感觉别扭 */
+        JLabel label = new JLabel("<html>左<br/>边<br/>没<br/>点<br/>啥<br/>总<br/>感<br/>觉<br/>别<br/>扭</html>");
+        JPanel leftPanel = new JPanel();
+        leftPanel.add(label);
+        /* 组件拼入窗体 */
         window = new JFrame("What the Hell Code");
         window.setJMenuBar(bar);
-        window.add(pane, BorderLayout.CENTER);
+        window.add(textArea, BorderLayout.CENTER);
         window.add(status, BorderLayout.SOUTH);
+        window.add(leftPanel, BorderLayout.WEST);
     }
 
     public void go() {
@@ -62,23 +65,16 @@ public final class NotepadFrame {
         window.setVisible(true);
     }
 
-    public void dispose() {
-        window.dispose();
-    }
-
-    public void setFile(File file) {
-        this.file = file;
-        if(file!=null&&file.exists()){
-            window.setTitle(file.getName()+" - What the Hell Code");
-        }else{
-            window.setTitle("What the Hell Code");
-        }
+    public void setText(String string) {
+        textArea.setText(string);
     }
 
     public void changeEncode() {
-        if (encode.getText().equals("UTF-8")) {
+        if (getCoder().equals("UTF-8")) {
             encode.setText("GBK");
-        } else {
+        } else if (getCoder().equals("GBK")) {
+            encode.setText("UTF-16");
+        } else if (getCoder().equals("UTF-16")) {
             encode.setText("UTF-8");
         }
     }
@@ -89,10 +85,6 @@ public final class NotepadFrame {
 
     public JButton getEncode() {
         return encode;
-    }
-
-    public File getFile() {
-        return file;
     }
 
     /**
@@ -107,37 +99,11 @@ public final class NotepadFrame {
         return window;
     }
 
-    public void read() {
-        try (FileInputStream f = new FileInputStream(this.file)) {
-            BufferedReader file = new BufferedReader(new InputStreamReader(f, getCoder()));
-            StringBuffer str = new StringBuffer();
-            String s;
-            while ((s = file.readLine()) != null) {
-                str.append(s + '\n');
-            }
-            file.close();
-            textArea.setText(str.toString());
-        } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(window, "文件未找到", "文件打开失败", JOptionPane.INFORMATION_MESSAGE);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(window, e, "文件打开失败", JOptionPane.ERROR_MESSAGE);
-        }
+    public String getText() {
+        return textArea.getText();
     }
 
-    public void write() throws IOException {
-        write(file);
-    }
-
-    public void write(File writingFile) throws IOException {
-        FileOutputStream f = new FileOutputStream(writingFile);
-        OutputStreamWriter file = new OutputStreamWriter(f, getCoder());
-        file.write(textArea.getText());
-        file.close();
-
-    }
-
-    public void createNew() {
-        textArea.setText("");
-        file = null;
+    public void setVisible(boolean sign) {
+        window.setVisible(sign);
     }
 }

@@ -2,13 +2,13 @@ package Test7;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 
 public final class MyListener implements ActionListener, KeyListener, WindowListener {
     private boolean changed;
     private NotepadFrame notepad;
+    private JFileChooser fileChooser;
+    private File file;
 
     /**
      * 构造
@@ -18,6 +18,7 @@ public final class MyListener implements ActionListener, KeyListener, WindowList
     MyListener(NotepadFrame frame) {
         notepad = frame;
         changed = false;
+        fileChooser = new JFileChooser();
     }
 
     @Override
@@ -26,22 +27,20 @@ public final class MyListener implements ActionListener, KeyListener, WindowList
         if (e.getSource() == notepad.getMenu(0)) {
 
             trySave();
-            notepad.createNew();
+            createNew();
         }
 
         /* 打开 */
         if (e.getSource() == notepad.getMenu(1)) {
             System.out.println("按下“打开文件”");
-            String file = JOptionPane.showInputDialog("请输入欲打开文件名(含路径)");
-            if (file != null) {
-                var s = new File(file);
+            if (fileChooser.showOpenDialog(notepad.getWindow()) == JFileChooser.APPROVE_OPTION) {
+                var s = fileChooser.getSelectedFile();
                 if (!s.exists()) {
-                    System.out.println("文件 " + file + " 不存在");
+                    System.out.println("文件 " + s.getPath() + " 不存在");
                     return;
                 }
-                notepad.setFile(s);
-                notepad.read();
-                changed = false;
+                setFile(s);
+                read();
 
                 if (s.exists()) {
                     System.out.println("打开： " + s.getPath());
@@ -53,9 +52,9 @@ public final class MyListener implements ActionListener, KeyListener, WindowList
         if (e.getSource() == notepad.getMenu(2)) {
             System.out.println("按下“保存文件”");
 
-            if (notepad.getFile() != null) {
+            if (file != null) {
                 try {
-                    notepad.write();
+                    write();
                 } catch (FileNotFoundException ex) {
                     JOptionPane.showMessageDialog(notepad.getWindow(), "保存出错", "文件保存失败",
                             JOptionPane.INFORMATION_MESSAGE);
@@ -64,7 +63,7 @@ public final class MyListener implements ActionListener, KeyListener, WindowList
                 }
             } else {
                 try {
-                    notepad.setFile(SaveAs());
+                    setFile(SaveAs());
                 } catch (FileNotFoundException ex) {
                     JOptionPane.showMessageDialog(notepad.getWindow(), "保存出错", "文件保存失败",
                             JOptionPane.INFORMATION_MESSAGE);
@@ -72,8 +71,9 @@ public final class MyListener implements ActionListener, KeyListener, WindowList
                     JOptionPane.showMessageDialog(notepad.getWindow(), ex, "文件保存失败", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            var s = notepad.getFile();
+            var s = file;
             System.out.println("储存： " + s.getPath());
+            System.out.println("文件改变重置");
             changed = false;
         }
         /* 另存为 */
@@ -109,7 +109,7 @@ public final class MyListener implements ActionListener, KeyListener, WindowList
                     return;
                 }
             }
-            if (notepad.getFile() == null) {
+            if (file == null) {
                 try {
                     File s = SaveAs();
                     if (s != null) {
@@ -122,48 +122,28 @@ public final class MyListener implements ActionListener, KeyListener, WindowList
                     JOptionPane.showMessageDialog(notepad.getWindow(), ex, "文件保存失败", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                notepad.read();
+                read();
             }
-            changed = false;
-
         }
 
     }
 
     private File SaveAs() throws IOException {
-        String file = JOptionPane.showInputDialog("请输入欲保存文件名(含路径)");
-        if (file == null) {
-            return null;
-        }
-        if (file.equals("")) {
-            JOptionPane.showMessageDialog(notepad.getWindow(), "文件名为空！");
+        if (fileChooser.showSaveDialog(notepad.getWindow()) == JFileChooser.CANCEL_OPTION) {
             return null;
         }
 
-        File f = new File(file);
+        File f = fileChooser.getSelectedFile();
+        if (f.exists()) {
+            if (JOptionPane.showConfirmDialog(notepad.getWindow(), "是否覆盖？", "目标文件存在",
+                    JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION)
+                throw new IOException();
+        }
         /*
          * try { f.createNewFile(); } catch (IOException ex) { ex.printStackTrace(); }
          */
-        notepad.write(f);
+        write(f);
         return f;
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        System.out.println("按下 " + e.getKeyChar() + "(按键码：" + e.getKeyCode() + ")");
-        if (!e.isControlDown()) {
-            changed = true;
-        }
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
     }
 
     @Override
@@ -182,12 +162,13 @@ public final class MyListener implements ActionListener, KeyListener, WindowList
         if (changed && JOptionPane.showConfirmDialog(notepad.getWindow(), "是否保存?", "文件尚未保存",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             try {
-                if (notepad.getFile() == null) {
+                if (file == null) {
                     SaveAs();
                 } else {
-                    notepad.write();
+                    write();
                 }
                 changed = false;
+                System.out.println("文件改变重置");
             } catch (FileNotFoundException ex) {
                 JOptionPane.showMessageDialog(notepad.getWindow(), "保存出错", "文件保存失败", JOptionPane.INFORMATION_MESSAGE);
                 trySave();
@@ -223,4 +204,71 @@ public final class MyListener implements ActionListener, KeyListener, WindowList
 
     }
 
+    public void read() {
+        try (FileInputStream f = new FileInputStream(this.file)) {
+            BufferedReader file = new BufferedReader(new InputStreamReader(f, notepad.getCoder()));
+            StringBuffer str = new StringBuffer();
+            String s;
+            while ((s = file.readLine()) != null) {
+                str.append(s).append('\n');
+            }
+            file.close();
+
+            notepad.setText(str.toString());
+
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(notepad.getWindow(), "文件未找到", "文件打开失败", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(notepad.getWindow(), e, "文件打开失败", JOptionPane.ERROR_MESSAGE);
+        }
+
+        changed = false;
+        System.out.println("文件改变重置");
+    }
+
+    public void write() throws IOException {
+        write(file);
+    }
+
+    public void write(File writingFile) throws IOException {
+        FileOutputStream f = new FileOutputStream(writingFile);
+        OutputStreamWriter file = new OutputStreamWriter(f, notepad.getCoder());
+        file.write(notepad.getText());
+        file.close();
+
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+        if (file != null && file.exists()) {
+            notepad.getWindow().setTitle(file.getName() + " - What the Hell Code");
+        } else {
+            notepad.getWindow().setTitle("What the Hell Code");
+        }
+    }
+
+    public void createNew() {
+        notepad.setText("");
+        file = null;
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        System.out.println("按下 " + e.getKeyChar() + "(按键码：" + e.getKeyCode() + ")");
+        if (!e.isControlDown()) {
+            System.out.println("文件已经改变");
+
+            changed = true;
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
 }
