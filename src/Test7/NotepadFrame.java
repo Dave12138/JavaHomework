@@ -12,7 +12,8 @@ public final class NotepadFrame {
     private TextArea textArea;
     private JButton encode;
     JPanel leftPanel;
-static boolean s;
+    static boolean s;
+
     public NotepadFrame() {
         /* 顶部菜单栏 */
         String[] menuName = { "新建", "打开", "保存", "另存为", "退出" };
@@ -82,7 +83,7 @@ static boolean s;
             encode.setText("UTF-8");
         }
         leftPanel.setVisible(s);
-        s=!s;
+        s = !s;
 
     }
 
