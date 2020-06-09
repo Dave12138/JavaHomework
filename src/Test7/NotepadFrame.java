@@ -11,7 +11,8 @@ public final class NotepadFrame {
     private JFrame window;
     private TextArea textArea;
     private JButton encode;
-
+    JPanel leftPanel;
+static boolean s;
     public NotepadFrame() {
         /* 顶部菜单栏 */
         String[] menuName = { "新建", "打开", "保存", "另存为", "退出" };
@@ -40,7 +41,7 @@ public final class NotepadFrame {
         status.add(encode, BorderLayout.EAST);
         /* 左边没点啥总感觉别扭 */
         JLabel label = new JLabel("<html>左<br/>边<br/>没<br/>点<br/>啥<br/>总<br/>感<br/>觉<br/>别<br/>扭</html>");
-        JPanel leftPanel = new JPanel();
+        leftPanel = new JPanel();
         leftPanel.add(label);
         /* 组件拼入窗体 */
         window = new JFrame("What the Hell Code");
@@ -69,6 +70,9 @@ public final class NotepadFrame {
         textArea.setText(string);
     }
 
+    /**
+     * UTF-8 GBK UTF-16
+     */
     public void changeEncode() {
         if (getCoder().equals("UTF-8")) {
             encode.setText("GBK");
@@ -77,6 +81,9 @@ public final class NotepadFrame {
         } else if (getCoder().equals("UTF-16")) {
             encode.setText("UTF-8");
         }
+        leftPanel.setVisible(s);
+        s=!s;
+
     }
 
     public String getCoder() {

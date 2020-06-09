@@ -109,7 +109,7 @@ public final class MyListener implements ActionListener, KeyListener, WindowList
                     return;
                 }
             }
-            if (file == null) {
+            if (changed && file == null) {
                 try {
                     File s = SaveAs();
                     if (s != null) {
