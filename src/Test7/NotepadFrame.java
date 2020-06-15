@@ -2,14 +2,14 @@ package Test7;
 
 import javax.swing.*;
 
-import java.awt.*;
+import java.awt.BorderLayout;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 public final class NotepadFrame {
     private JMenuItem[] menu;
     private JFrame window;
-    private TextArea textArea;
+    private JTextArea textArea;
     private JButton encode;
     JPanel leftPanel;
     static boolean s;
@@ -34,7 +34,8 @@ public final class NotepadFrame {
         menu[3].setAccelerator(
                 KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
         /* 文本编辑框 */
-        textArea = new TextArea();
+        textArea = new JTextArea();
+        JScrollPane sp=new JScrollPane(textArea);
         /* 底边状态栏 */
         JPanel status = new JPanel();
         encode = new JButton("UTF-8");
@@ -47,7 +48,7 @@ public final class NotepadFrame {
         /* 组件拼入窗体 */
         window = new JFrame("What the Hell Code");
         window.setJMenuBar(bar);
-        window.add(textArea, BorderLayout.CENTER);
+        window.add(sp, BorderLayout.CENTER);
         window.add(status, BorderLayout.SOUTH);
         window.add(leftPanel, BorderLayout.WEST);
     }

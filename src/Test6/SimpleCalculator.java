@@ -1,7 +1,8 @@
 package Test6;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 
 public final class SimpleCalculator {
     private JFrame window;
@@ -39,7 +40,7 @@ public final class SimpleCalculator {
         top.add(pre);
         top.add(operator);
         top.add(suf);
-        top.add(new Label("="));
+        top.add(new JLabel("="));
         top.add(result);
         window.add(top, BorderLayout.CENTER);
         /* 再加一个容器放下排 里面塞按钮 */
