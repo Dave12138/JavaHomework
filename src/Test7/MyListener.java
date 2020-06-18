@@ -1,10 +1,14 @@
 package Test7;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
+
 import java.awt.event.*;
 import java.io.*;
 
-public final class MyListener implements ActionListener, KeyListener, WindowListener {
+public final class MyListener implements ActionListener, /*KeyListener,*/ WindowListener,DocumentListener {
     private boolean changed;
     private NotepadFrame notepad;
     private JFileChooser fileChooser;
@@ -252,6 +256,7 @@ public final class MyListener implements ActionListener, KeyListener, WindowList
         file = null;
     }
 
+/*
     @Override
     public void keyTyped(KeyEvent e) {
         System.out.println("按下 " + e.getKeyChar() + "(按键码：" + e.getKeyCode() + ")");
@@ -270,5 +275,26 @@ public final class MyListener implements ActionListener, KeyListener, WindowList
     @Override
     public void keyReleased(KeyEvent e) {
 
+    }
+*/
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+
+        changed=true;
+        System.out.println("文件已经改变(插入)");
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+
+        changed=true;
+        System.out.println("文件已经改变(删除)");
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+        changed=true;
+        System.out.println("文件已经改变");
     }
 }

@@ -12,7 +12,7 @@ public final class NotepadFrame {
     private JTextArea textArea;
     private JButton encode;
     JPanel leftPanel;
-    static boolean s;
+    //static boolean s;
 
     public NotepadFrame() {
         /* 顶部菜单栏 */
@@ -60,7 +60,7 @@ public final class NotepadFrame {
             menu[i].addActionListener(listener);
         }
         window.addWindowListener(listener);
-        textArea.addKeyListener(listener);
+        textArea.getDocument().addDocumentListener(listener);
         encode.addActionListener(listener);
         /* 窗口 */
         window.setLocation(500, 500);
@@ -83,8 +83,8 @@ public final class NotepadFrame {
         } else if (getCoder().equals("UTF-16")) {
             encode.setText("UTF-8");
         }
-        leftPanel.setVisible(s);
-        s = !s;
+        //leftPanel.setVisible(s);
+        //s = !s;
 
     }
 
