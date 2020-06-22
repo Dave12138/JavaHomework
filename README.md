@@ -51,3 +51,10 @@ Object类
 
 * 实现一个SimpleCalculator类，构成一个简易计算器的UI
 * 实现一个MyListener类，用于捕获并处理计算器按钮点击事件
+
+## 实验7
+简易文本编辑器
+* 实现一个NotepadFrame类，用于构成文本编辑器的GUI
+* 实现一个MyListener类，处理所有事件
+## 实验8
+世界时钟

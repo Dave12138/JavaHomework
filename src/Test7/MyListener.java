@@ -3,7 +3,6 @@ package Test7;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.Document;
 
 import java.awt.event.*;
 import java.io.*;
