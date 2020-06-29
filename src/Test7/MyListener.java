@@ -7,7 +7,7 @@ import javax.swing.event.DocumentListener;
 import java.awt.event.*;
 import java.io.*;
 
-public final class MyListener implements ActionListener, /*KeyListener,*/ WindowListener,DocumentListener {
+public final class MyListener implements ActionListener, /* KeyListener, */ WindowListener, DocumentListener {
     private boolean changed;
     private NotepadFrame notepad;
     private JFileChooser fileChooser;
@@ -36,6 +36,7 @@ public final class MyListener implements ActionListener, /*KeyListener,*/ Window
         /* 打开 */
         if (e.getSource() == notepad.getMenu(1)) {
             System.out.println("按下“打开文件”");
+            trySave();
             if (fileChooser.showOpenDialog(notepad.getWindow()) == JFileChooser.APPROVE_OPTION) {
                 var s = fileChooser.getSelectedFile();
                 if (!s.exists()) {
@@ -93,6 +94,13 @@ public final class MyListener implements ActionListener, /*KeyListener,*/ Window
             }
             if (s != null) {
                 System.out.println("另存为 " + s.getPath());
+                if(s.equals(file)){
+
+                    changed=false;
+                    System.out.println("保存到打开的文件");
+                    System.out.println("文件改变重置");
+
+                }
             }
         }
         /* 退出 */
@@ -131,16 +139,22 @@ public final class MyListener implements ActionListener, /*KeyListener,*/ Window
 
     }
 
+    /**
+     * 另存为功能 包含文件选择和保存逻辑
+     * @return 保存到的文件对象
+     * @throws IOException
+     */
     private File SaveAs() throws IOException {
+        // 弹窗：文件保存窗口
         if (fileChooser.showSaveDialog(notepad.getWindow()) == JFileChooser.CANCEL_OPTION) {
             return null;
         }
-
+        // 获取选定文件
         File f = fileChooser.getSelectedFile();
         if (f.exists()) {
             if (JOptionPane.showConfirmDialog(notepad.getWindow(), "是否覆盖？", "目标文件存在",
                     JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION)
-                throw new IOException();
+                throw new IOException("取消保存");
         }
         /*
          * try { f.createNewFile(); } catch (IOException ex) { ex.printStackTrace(); }
@@ -255,45 +269,39 @@ public final class MyListener implements ActionListener, /*KeyListener,*/ Window
         file = null;
     }
 
-/*
-    @Override
-    public void keyTyped(KeyEvent e) {
-        System.out.println("按下 " + e.getKeyChar() + "(按键码：" + e.getKeyCode() + ")");
-        if (!e.isControlDown()) {
-            System.out.println("文件已经改变");
-
-            changed = true;
-        }
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
-*/
+    /*
+     * @Override public void keyTyped(KeyEvent e) { System.out.println("按下 " +
+     * e.getKeyChar() + "(按键码：" + e.getKeyCode() + ")"); if (!e.isControlDown()) {
+     * System.out.println("文件已经改变");
+     * 
+     * changed = true; } }
+     * 
+     * @Override public void keyPressed(KeyEvent e) {
+     * 
+     * }
+     * 
+     * @Override public void keyReleased(KeyEvent e) {
+     * 
+     * }
+     */
 
     @Override
     public void insertUpdate(DocumentEvent e) {
 
-        changed=true;
+        changed = true;
         System.out.println("文件已经改变(插入)");
     }
 
     @Override
     public void removeUpdate(DocumentEvent e) {
 
-        changed=true;
+        changed = true;
         System.out.println("文件已经改变(删除)");
     }
 
     @Override
     public void changedUpdate(DocumentEvent e) {
-        changed=true;
+        changed = true;
         System.out.println("文件已经改变");
     }
 }
