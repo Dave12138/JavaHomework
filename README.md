@@ -50,16 +50,20 @@ Object 类
 
 简易计算器
 
-- 实现一个 SimpleCalculator 类，构成一个简易计算器的 UI
-- 实现一个 MyListener 类，用于捕获并处理计算器按钮点击事件
+- 编写计算器界面类 SimpleCalculator ，构成一个简易计算器的 UI
+- 编写按钮事件处理类 MyListener ，用于捕获并处理计算器按钮点击事件
 
 ## 实验 7
 
 简易文本编辑器
 
-- 实现一个 NotepadFrame 类，用于构成文本编辑器的 GUI
-- 实现一个 MyListener 类，处理所有事件
+- 编写文本编辑器界面类 NotepadFrame ，用于构成文本编辑器的 GUI
+- 编写事件处理类 MyListener ，处理所有事件
 
 ## 实验 8
 
 世界时钟
+
+- 编写世界时钟程序界面类 WorldClock ，构成世界时钟的 GUI
+- 编写时钟线程类 ClockThread，完成每隔 1 秒更新显示功能
+- 编写按钮事件处理类 MyListener ，实现单击按钮时暂停或继续时钟显示
