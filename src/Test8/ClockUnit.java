@@ -32,7 +32,10 @@ public class ClockUnit extends JPanel {
     }
 
     public void refresh() {
-        clock.add(Calendar.SECOND, 1);
+//        clock.add(Calendar.SECOND, 1);
+
+        clock = Calendar.getInstance();
+        clock.add(Calendar.HOUR, timeInterval);
         time.setText(clock.get(Calendar.HOUR_OF_DAY) + ":" + clock.get(Calendar.MINUTE) + ":" + clock.get(Calendar.SECOND));
 
     }
@@ -45,6 +48,7 @@ public class ClockUnit extends JPanel {
         if (pauseButton.getText().equals("暂停")) {
             pauseButton.setText("开始");
             thread.setWorking(false);
+            time.setText("--:--:--");
         } else {
 
             pauseButton.setText("暂停");
